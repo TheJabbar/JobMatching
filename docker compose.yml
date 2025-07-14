@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: jobmatch-api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_KEY=internship2025
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: jobmatch-ui
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL="http://jobmatch_api:8000/recommend"
+    depends_on:
+      - api
+
+
+
